@@ -90,7 +90,8 @@
     
     <script>
         // Login Button Event Handler
-        const loginBtn = document.getElementById("login");
+        const loginBtn = document.getElementById("login"); // Grabbed the button
+        // add the event handler to this button
         loginBtn.addEventListener("click", function(){
             const loginArea = document.getElementById("login-area");
             loginArea.style.display = "none";
@@ -99,7 +100,8 @@
         });
 
         // Deposit Button Event handler
-        const addDeposit = document.getElementById("add-deposit");
+        const addDeposit = document.getElementById("add-deposit"); // Grabbed the button
+        // add the event handler to this button
         addDeposit.addEventListener("click", function(){
             const depositAmount = document.getElementById("deposit-amount").value;
             const depositNumber = parseFloat(depositAmount);
