@@ -30,19 +30,19 @@
             <div class="col-md-4">
                 <div class="deposit status">
                     <h5>Deposit</h5>
-                    <h2>$ <span id="current-deposit">00</span></h2>
+                    <h2>$<span id="current-deposit">00</span></h2>
                 </div>
             </div>
             <div class="col-md-4">
                 <div class="withdraw status">
                     <h5>Withdraw</h5>
-                    <h2>$00</h2>
+                    <h2>$ <span id="current-withdraw">00</span></h2>
                 </div>
             </div>
             <div class="col-md-4">
                 <div class="balance status">
                     <h5>Balance</h5>
-                    <h2>$1240</h2>
+                    <h2>$<span id="current-balance">1240</span></h2>
                 </div>
             </div>
         </div>
@@ -59,9 +59,9 @@
             <div class="col-md-6">
                 <div class="submit-area">
                     <h4>Withdraw</h4>
-                    <input type="text" class="form-control" placeholder="$ Amount You want to Withdraw">
+                    <input id="withdraw-amount" type="text" class="form-control" placeholder="$ Amount You want to Withdraw">
                     <br>
-                    <button class="btn btn-success">Withdraw</button>
+                    <button id="add-withdraw" class="btn btn-success">Withdraw</button>
                 </div>
             </div>
         </div>
@@ -94,25 +94,44 @@
         // add the event handler to this button
         loginBtn.addEventListener("click", function(){
             const loginArea = document.getElementById("login-area");
-            loginArea.style.display = "none";
+            loginArea.style.display = "none"; // After click it will not show anything
             const transactionArea = document.getElementById("transaction-area");
-            transactionArea.style.display = "block";
+            transactionArea.style.display = "block"; // After click it will show the Transaction area
         });
 
         // Deposit Button Event handler
         const addDeposit = document.getElementById("add-deposit"); // Grabbed the button
         // add the event handler to this button
         addDeposit.addEventListener("click", function(){
-            const depositAmount = document.getElementById("deposit-amount").value;
-            const depositNumber = parseFloat(depositAmount);
+            const depositNumber = getInputNumber("deposit-amount");
 
-            const currentDeposit = document.getElementById("current-deposit").innerText;
-            const currentDepositNumber = parseFloat(currentDeposit);
-            const totalDeposit = depositNumber + currentDepositNumber;
-            document.getElementById("current-deposit").innerText = totalDeposit;
+            updateSpanText("current-deposit", depositNumber);
+            updateSpanText("current-balance", depositNumber);
+            
             document.getElementById("deposit-amount").value = "";
         });
 
+        // Withdraw Button Event Handler
+        const withdrawBtn = document.getElementById("add-withdraw");
+        withdrawBtn.addEventListener("click", function(){
+            const withdrawNumber = getInputNumber("withdraw-amount");
+            updateSpanText("current-withdraw", withdrawNumber);
+            updateSpanText("current-balance", withdrawNumber * -1);
+
+            document.getElementById("withdraw-amount").value = "";
+        });
+        function getInputNumber(id){
+            const amount = document.getElementById(id).value;
+            const amountNumber = parseFloat(amount);
+            return amountNumber;
+        }
+
+        function updateSpanText(id, depositNumber){
+            const current = document.getElementById(id).innerText;
+            const currentNumber = parseFloat(current);
+            const totalAmount = depositNumber + currentNumber;
+            document.getElementById(id).innerText = totalAmount;
+        }
 
     </script>
 </body>
